@@ -13,5 +13,7 @@ Cargo.lock
 *.env
 
 # Log files
-
 *.log
+
+# JetBrains project config folder
+.idea
