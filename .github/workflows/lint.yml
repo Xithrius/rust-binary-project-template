@@ -1,6 +1,10 @@
-name: Linters
+name: Linting
 
-on: [push, pull_request]
+on:
+  push:
+    branches:
+      - main
+  pull_request:
 
 jobs:
   rustfmt:
@@ -14,6 +18,5 @@ jobs:
           rustup update stable
           rustup default stable
           rustup component add rustfmt
-
       - name: Check Formatting
         run: cargo fmt --all -- --check
