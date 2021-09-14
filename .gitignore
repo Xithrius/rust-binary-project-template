@@ -17,3 +17,6 @@ Cargo.lock
 
 # JetBrains project config folder
 .idea
+
+# Custom config, copied from `default-config.toml`
+config.toml
