@@ -7,3 +7,8 @@ edition = "2018"
 
 [dependencies]
 
+
+# [[bin]]
+# bench = false
+# path = "src/main.rs"
+# name = ""
