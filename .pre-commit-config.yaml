@@ -16,4 +16,3 @@ repos:
         entry: cargo fmt --
         language: rust
         types: [ rust ]
-
