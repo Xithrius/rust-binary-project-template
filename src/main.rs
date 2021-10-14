@@ -5,7 +5,7 @@ use crate::handlers::config::CompleteConfig;
 
 fn main() {
     match CompleteConfig::new() {
-        Ok(config) => {
+        Ok(_config) => {
             println!("Hello World!");
         }
         Err(err) => {
