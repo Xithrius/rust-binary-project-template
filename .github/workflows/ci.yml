@@ -20,7 +20,7 @@ jobs:
           - { prettyname: macOS, fullname: macos-latest }
           - { prettyname: Linux, fullname: ubuntu-latest }
 
-        threadingMode: [ 'MultiThreaded' ]
+        threadingMode: [ 'SingleThread', 'MultiThreaded' ]
 
     timeout-minutes: 60
 
