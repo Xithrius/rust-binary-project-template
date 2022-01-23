@@ -1,5 +1,5 @@
 [package]
-name = "rust-template-project"
+name = "rust-binary-project-template"
 version = "0.1.0"
 edition = "2018"
 
@@ -13,4 +13,5 @@ anyhow = "1.0.52"
 [[bin]]
 bench = false
 path = "src/main.rs"
-name = "rust-template-project"
+name = "rust-binary-project-template"
+
