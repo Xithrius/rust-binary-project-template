@@ -14,4 +14,3 @@ anyhow = "1.0.52"
 bench = false
 path = "src/main.rs"
 name = "rust-binary-project-template"
-
