@@ -1,14 +1,17 @@
 [package]
 name = "rust-binary-project-template"
 version = "0.1.0"
-edition = "2018"
+edition = "2021"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-serde = { version = "1.0.136", features = ["derive"] }
+serde = { version = "1.0.136", features = [ "derive" ] }
 toml = "0.5.8"
-anyhow = "1.0.53"
+color-eyre = "0.6.1"
+
+[profile.dev.package.backtrace]
+opt-level = 3
 
 [[bin]]
 bench = false
