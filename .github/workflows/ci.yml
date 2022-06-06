@@ -2,8 +2,7 @@ name: CI
 
 on:
   push:
-    branches:
-      - main
+    branches: [ main ]
   pull_request:
 
 env:
@@ -15,25 +14,49 @@ jobs:
       fail-fast: false
 
       matrix:
-        os:
-          - { prettyname: Windows, fullname: windows-latest }
-          - { prettyname: macOS, fullname: macos-latest }
-          - { prettyname: Linux, fullname: ubuntu-latest }
+        include:
+          - os: windows-latest
+            target: x86_64-pc-windows-msvc
 
-        threadingMode: [ 'SingleThread', 'MultiThreaded' ]
+          - os: ubuntu-latest
+            target: x86_64-unknown-linux-gnu
 
-    timeout-minutes: 60
+          - os: macos-latest
+            target: x86_64-apple-darwin
 
-    runs-on: ${{matrix.os.fullname}}
+    name: Build & Test (${{ matrix.target }})
+    runs-on: ${{ matrix.os }}
+
+    env:
+      RA_TARGET: ${{ matrix.target }}
 
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Install Rust toolchain
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+          target: ${{ matrix.target }}
+          profile: minimal
+          override: true
+
+      - name: Install Rust library source
+        if: matrix.target == 'x86_64-unknown-linux-gnu'
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+          target: ${{ matrix.target }}
+          profile: minimal
+          override: true
+          components: rust-src
 
       - name: Build
-        run: cargo build --verbose
+        run: cargo build --verbose --target ${{ matrix.target }}
 
       - name: Run tests
-        run: cargo test --verbose
+        run: cargo test --verbose --target ${{ matrix.target }}
 
   lint:
     name: Formatter
@@ -43,7 +66,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout repository
+        uses: actions/checkout@v3
 
       - name: Install Rust
         run: |
@@ -57,3 +81,25 @@ jobs:
 
       - name: Check code for possible improvements
         run: cargo clippy -- -D warnings
+
+      # Prepare the Pull Request Payload artifact. If this fails, we
+      # we fail silently using the `continue-on-error` option. It's
+      # nice if this succeeds, but if it fails for any reason, it
+      # does not mean that our lint-test checks failed.
+      - name: Prepare Pull Request Payload artifact
+        id: prepare-artifact
+        if: always() && github.event_name == 'pull_request'
+        continue-on-error: true
+        run: cat $GITHUB_EVENT_PATH | jq '.pull_request' > pull_request_payload.json
+
+      # This only makes sense if the previous step succeeded. To
+      # get the original outcome of the previous step before the
+      # `continue-on-error` conclusion is applied, we use the
+      # `.outcome` value. This step also fails silently.
+      - name: Upload a Build Artifact
+        if: always() && steps.prepare-artifact.outcome == 'success'
+        continue-on-error: true
+        uses: actions/upload-artifact@v2
+        with:
+          name: pull-request-payload
+          path: pull_request_payload.json
