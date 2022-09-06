@@ -17,3 +17,6 @@ opt-level = 3
 bench = false
 path = "src/main.rs"
 name = "rust-binary-project-template"
+
+[profile.release]
+lto = "thin"

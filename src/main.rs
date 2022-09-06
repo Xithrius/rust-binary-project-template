@@ -1,3 +1,6 @@
+#![warn(clippy::nursery, clippy::pedantic)]
+#![allow(clippy::module_name_repetitions, clippy::future_not_send)]
+
 use color_eyre::eyre::{Error, Result, WrapErr};
 
 mod handlers;
@@ -12,5 +15,5 @@ fn main() -> Result<(), Error> {
         .wrap_err("Unable to read configuration file.")
         .unwrap();
 
-    Ok(())
+    std::process::exit(0)
 }
