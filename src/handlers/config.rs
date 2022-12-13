@@ -26,7 +26,7 @@ impl CompleteConfig {
             file.write_all(default_toml_string.as_bytes()).unwrap();
 
             bail!("Configuration was generated at {path_str}, please fill it out with necessary information.")
-        } else if let Ok(config_contents) = read_to_string(&p) {
+        } else if let Ok(config_contents) = read_to_string(p) {
             let config: Self = toml::from_str(config_contents.as_str()).unwrap();
 
             // Remember to check for any important missing config items here!
