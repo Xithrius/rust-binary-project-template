@@ -1,0 +1,33 @@
+{
+  "version": "0.1.0",
+  "configurations": [
+    {
+      "type": "lldb",
+      "request": "launch",
+      "name": "Debug executable 'rust-binary-project-template'",
+      "cargo": {
+        "args": ["build", "--bin=rust-binary-project-template", "--package=rust-binary-project-template"],
+        "filter": {
+          "name": "rust-binary-project-template",
+          "kind": "bin"
+        }
+      },
+      "args": [],
+      "cwd": "${workspaceFolder}"
+    },
+    {
+      "type": "lldb",
+      "request": "launch",
+      "name": "Debug unit tests in executable 'rust-binary-project-template'",
+      "cargo": {
+        "args": ["test", "--no-run", "--bin=rust-binary-project-template", "--package=rust-binary-project-template"],
+        "filter": {
+          "name": "rust-binary-project-template",
+          "kind": "bin"
+        }
+      },
+      "args": [],
+      "cwd": "${workspaceFolder}"
+    }
+  ]
+}
