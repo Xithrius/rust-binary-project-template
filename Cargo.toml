@@ -7,7 +7,7 @@ edition = "2021"
 
 [dependencies]
 serde = { version = "1.0.203", features = [ "derive" ] }
-toml = "0.8.14"
+toml = "0.8.19"
 color-eyre = "0.6.3"
 
 [profile.dev.package.backtrace]
