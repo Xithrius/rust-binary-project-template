@@ -1,3 +1,4 @@
+#![forbid(unsafe_code)]
 #![warn(clippy::nursery, clippy::pedantic)]
 #![allow(clippy::module_name_repetitions, clippy::future_not_send)]
 

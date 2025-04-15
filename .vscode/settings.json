@@ -1,9 +1,9 @@
 {
   "[rust]": {
-    "editor.defaultFormatter": "rust-lang.rust-analyzer",
+    "editor.defaultFormatter": "rust-lang.rust-analyzer"
   },
   "rust-analyzer.check.command": "clippy",
-  "rust-analyzer.diagnostics.enable": true,
+  "rust-analyzer.rustfmt.extraArgs": ["+nightly"],
   "workbench.colorCustomizations": {
     "editor.inlayHints.fontSize": 14,
     "editorInlayHint.background": "#00000000",
